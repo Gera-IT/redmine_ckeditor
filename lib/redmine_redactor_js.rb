@@ -69,40 +69,40 @@ module RedmineRedactorJs
     end
 
     def options(scope_object = nil)
-      scope_type = scope_object && scope_object.class.model_name
-      scope_id = scope_object && scope_object.id
-
-      skin = RedmineCkeditorSetting.skin
-      skin += ",#{assets_root}/ckeditor-contrib/skins/#{skin}/" if skin != "moono"
-
-      o = Rich.options({
-                           :allowedContent => true,
-                           :allow_document_uploads => true,
-                           :allow_embeds => true,
-                           :default_style => :original,
-                           :richBrowserUrl => "#{Redmine::Utils.relative_url_root}/rich/files/",
-                           :contentsCss => [stylesheet_path("application"), "#{assets_root}/stylesheets/editor.css"],
-                           :bodyClass => "wiki",
-                           :extraPlugins => plugins.join(","),
-                           :removePlugins => 'div,flash,forms,iframe',
-                           :skin => skin,
-                           :forcePasteAsPlainText => false,
-                           :uiColor => RedmineCkeditorSetting.ui_color,
-                           :enterMode => RedmineCkeditorSetting.enter_mode,
-                           :shiftEnterMode => RedmineCkeditorSetting.shift_enter_mode,
-                           :startupOutlineBlocks => RedmineCkeditorSetting.show_blocks,
-                           :toolbarCanCollapse => RedmineCkeditorSetting.toolbar_can_collapse,
-                           :toolbarStartupExpanded => !RedmineCkeditorSetting.toolbar_can_collapse,
-                           :toolbarLocation => RedmineCkeditorSetting.toolbar_location,
-                           :toolbar => RedmineCkeditorSetting.toolbar,
-                           :scoped => scope_object ? true : false,
-                           :width => RedmineCkeditorSetting.width,
-                           :height => RedmineCkeditorSetting.height
-                       }, scope_type, scope_id)
-      o.delete(:removeDialogTabs)
-      o.delete(:format_tags)
-      o.delete(:stylesSet)
-      o
+      # scope_type = scope_object && scope_object.class.model_name
+      # scope_id = scope_object && scope_object.id
+      #
+      # skin = RedmineCkeditorSetting.skin
+      # skin += ",#{assets_root}/ckeditor-contrib/skins/#{skin}/" if skin != "moono"
+      #
+      # o = Rich.options({
+      #                      :allowedContent => true,
+      #                      :allow_document_uploads => true,
+      #                      :allow_embeds => true,
+      #                      :default_style => :original,
+      #                      :richBrowserUrl => "#{Redmine::Utils.relative_url_root}/rich/files/",
+      #                      :contentsCss => [stylesheet_path("application"), "#{assets_root}/stylesheets/editor.css"],
+      #                      :bodyClass => "wiki",
+      #                      :extraPlugins => plugins.join(","),
+      #                      :removePlugins => 'div,flash,forms,iframe',
+      #                      :skin => skin,
+      #                      :forcePasteAsPlainText => false,
+      #                      :uiColor => RedmineCkeditorSetting.ui_color,
+      #                      :enterMode => RedmineCkeditorSetting.enter_mode,
+      #                      :shiftEnterMode => RedmineCkeditorSetting.shift_enter_mode,
+      #                      :startupOutlineBlocks => RedmineCkeditorSetting.show_blocks,
+      #                      :toolbarCanCollapse => RedmineCkeditorSetting.toolbar_can_collapse,
+      #                      :toolbarStartupExpanded => !RedmineCkeditorSetting.toolbar_can_collapse,
+      #                      :toolbarLocation => RedmineCkeditorSetting.toolbar_location,
+      #                      :toolbar => RedmineCkeditorSetting.toolbar,
+      #                      :scoped => scope_object ? true : false,
+      #                      :width => RedmineCkeditorSetting.width,
+      #                      :height => RedmineCkeditorSetting.height
+      #                  }, scope_type, scope_id)
+      # o.delete(:removeDialogTabs)
+      # o.delete(:format_tags)
+      # o.delete(:stylesSet)
+      # o
     end
 
     def enabled?
@@ -110,16 +110,6 @@ module RedmineRedactorJs
     end
 
     def apply_patch
-      require 'redmine_ckeditor/application_helper_patch'
-      require 'redmine_ckeditor/queries_helper_patch'
-      require 'redmine_ckeditor/rich_files_helper_patch'
-      require 'redmine_ckeditor/rich_file_patch'
-      require 'redmine_ckeditor/rich_files_controller_patch'
-      require 'redmine_ckeditor/journals_controller_patch'
-      require 'redmine_ckeditor/messages_controller_patch'
     end
   end
 end
-
-require 'redmine_ckeditor/hooks/journal_listener'
-require 'redmine_ckeditor/pdf_patch'

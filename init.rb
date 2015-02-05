@@ -27,7 +27,15 @@ class FilesHook < Redmine::Hook::ViewListener
     javascript_include_tag('redactor.js', :plugin => 'redmine_redactor_js_editor') +
         stylesheet_link_tag('redactor.css', :plugin => 'redmine_redactor_js_editor') +
         javascript_include_tag('filemanager.js', :plugin => 'redmine_redactor_js_editor')+
-        javascript_include_tag('imagemanager.js', :plugin => 'redmine_redactor_js_editor')
+        javascript_include_tag('imagemanager.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('table.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('video.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('fullscreen.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('clips.js', :plugin => 'redmine_redactor_js_editor') +
+        stylesheet_link_tag('clips.css', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('fontsize.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('fontfamily.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('fontcolor.js', :plugin => 'redmine_redactor_js_editor')
   end
 end
 

@@ -18,12 +18,25 @@ module RedmineRedactor::WikiFormatting
         var textarea = document.getElementById(id);
         if (!textarea) return;
 
-    $('##{field_id}').redactor();
+    $('##{field_id}').redactor({
+        focus: true,
+        imageUpload: '/pictures.json?key=#{user_api_key}',
+        imageManagerJson: '/pictures.json?key=#{user_api_key}',
+        fileUpload: '/documents.json?key=#{user_api_key}',
+        fileManagerJson: '/documents.json?key=#{user_api_key}',
+        plugins: ['filemanager', 'imagemanager']
+    });
       })();
       EOT
     end
 
     def overwrite_functions
+    end
+
+    def user_api_key
+      p User.current
+      return nil if User.current.type == "AnonymousUser"
+      User.current.api_key
     end
 
     def redactor_javascripts

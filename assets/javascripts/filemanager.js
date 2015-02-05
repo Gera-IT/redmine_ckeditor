@@ -28,14 +28,15 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 				$.ajax({
 				  dataType: "json",
 				  cache: false,
-				  contentType: "application/json; charset=utf-8",
+				  contentType: "application/json;",
 				  url: this.opts.fileManagerJson,
 				  success: $.proxy(function(data)
 					{
 						var ul = $('<ul id="redactor-modal-list">');
+						console.log(data);
 						$.each(data, $.proxy(function(key, val)
 						{
-							var a = $('<a href="#" title="' + val.title + '" rel="' + val.link + '" class="redactor-file-manager-link">' + val.title + ' <span style="font-size: 11px; color: #888;">' + val.name + '</span> <span style="position: absolute; right: 10px; font-size: 11px; color: #888;">(' + val.size + ')</span></a>');
+							var a = $('<a href="#" title="' + (val.title || val.data_file_name )+ '" rel="' + val.link + '" class="redactor-file-manager-link">' + (val.title || val.data_file_name) + ' <span style="font-size: 11px; color: #888;">' + (val.name|| val.data_file_name)  + '</span> <span style="position: absolute; right: 10px; font-size: 11px; color: #888;">(' + val.data_file_size + ')</span></a>');
 							var li = $('<li />');
 
 							a.on('click', $.proxy(this.filemanager.insert, this));

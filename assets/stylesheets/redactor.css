@@ -139,6 +139,7 @@ body .redactor-box-fullscreen {
 */
 .redactor-toolbar {
   position: relative;
+  height:34px;
   top: 0;
   left: 0;
   margin: 0 !important;

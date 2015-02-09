@@ -14,13 +14,13 @@ Redmine::Plugin.register :redmine_redactor_js_editor do
                        RedmineRedactor::WikiFormatting::Helper
 
 
-  if Setting.text_formatting == "Imperavi Redactor"
+  # if Setting.text_formatting == "Imperavi Redactor"
     Rails.configuration.to_prepare do
       # This tells the Redmine version's controller to include the module from the file above.
       ApplicationController.send(:include, DeviseCurrentUser::ApplicationControllerPatch)
       RedmineRedactorJs.apply_patch
     end
-  end
+  # end
 end
 
 

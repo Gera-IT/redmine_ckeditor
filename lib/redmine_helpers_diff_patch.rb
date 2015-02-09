@@ -26,7 +26,18 @@ module Redmine
       attr_reader :diff, :words
 
       def to_html_with_redactor
-        words = self.words.collect{|word| h(word)}
+        words = self.words
+        # p words
+        # begin
+        #   words = words.map { |e|
+        #     r = e.gsub(/\r|\n|<.*?>/, '').strip
+        #     r.empty? ? nil : r
+        #   }.compact
+        # rescue
+        #   words = self.words
+        # end
+        # p words
+        words = words.collect{|word| h(word)}
         words_add = 0
         words_del = 0
         dels = 0
@@ -50,11 +61,11 @@ module Redmine
             end
           end
           if add_at
-            words[add_at] = '<span class="diff_in">'.html_safe + words[add_at]
-            words[add_to] = words[add_to].html_safe + '</span>'.html_safe
+            words[add_at] = '<span class="diff_in">'.html_safe + strip_tags(words[add_at].gsub("&lt;", "<").gsub("&gt;", ">"))
+            words[add_to] = words[add_to]+ '</span>'.html_safe
           end
           if del_at
-            words.insert del_at - del_off + dels + words_add, '<span class="diff_out">'.html_safe + deleted.html_safe + '</span>'.html_safe
+            words.insert del_at - del_off + dels + words_add, '<span class="diff_out">'.html_safe + strip_tags(deleted.gsub("&lt;", "<").gsub("&gt;", ">")) + '</span>'.html_safe
             dels += 1
             del_off += words_del
             words_del = 0

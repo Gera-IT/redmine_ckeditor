@@ -25,14 +25,25 @@ module Redmine
       include ActionView::Helpers::TextHelper
       attr_reader :diff, :words
 
+      def initialize_with_redactor(content_to, content_from)
+        @words = sanitize(content_to.to_s, tags: ["br"]).split(/(\s+)/)
+        @words = @words.select {|word| word != ' '}
+        words_from = sanitize(content_from.to_s, tags: ["br"]).split(/(\s+)/)
+        words_from = words_from.select {|word| word != ' '}
+        @diff = words_from.diff @words
+      end
+
+      alias_method_chain :initialize, :redactor
+
       def to_html_with_redactor
         words = self.words
         # p words
         # begin
         #   words = words.map { |e|
-        #     r = e.gsub(/\r|\n|<.*?>/, '').strip
-        #     r.empty? ? nil : r
-        #   }.compact
+        #     r = e.gsub("<br>", /\n|\r/)
+        #     r = r.gsub(/<.*?>/, '').strip
+        #     r.empty? ? "" : r
+        #   }
         # rescue
         #   words = self.words
         # end
@@ -61,16 +72,17 @@ module Redmine
             end
           end
           if add_at
-            words[add_at] = '<span class="diff_in">'.html_safe + strip_tags(words[add_at].gsub("&lt;", "<").gsub("&gt;", ">"))
+            words[add_at] = '<span class="diff_in">'.html_safe + words[add_at].gsub("&lt;", "<").gsub("&gt;", ">")
             words[add_to] = words[add_to]+ '</span>'.html_safe
           end
           if del_at
-            words.insert del_at - del_off + dels + words_add, '<span class="diff_out">'.html_safe + strip_tags(deleted.gsub("&lt;", "<").gsub("&gt;", ">")) + '</span>'.html_safe
+            words.insert del_at - del_off + dels + words_add, '<span class="diff_out">'.html_safe + deleted.gsub("&lt;", "<").gsub("&gt;", ">") + '</span>'.html_safe
             dels += 1
             del_off += words_del
             words_del = 0
           end
         end
+        p words
         words.join(' ').html_safe
       end
       alias_method_chain :to_html, :redactor

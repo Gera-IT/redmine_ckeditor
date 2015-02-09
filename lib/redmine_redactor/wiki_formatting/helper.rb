@@ -22,6 +22,7 @@ module RedmineRedactor::WikiFormatting
         focus: true,
         linebreaks: true,
         paragraphy: false,
+        pastePlainText: true,
         imageUpload: '/pictures.json?key=#{user_api_key}',
         imageManagerJson: '/pictures.json?key=#{user_api_key}',
         fileUpload: '/documents.json?key=#{user_api_key}',

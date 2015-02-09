@@ -17,6 +17,7 @@ Redmine::Plugin.register :redmine_redactor_js_editor do
   Rails.configuration.to_prepare do
     # This tells the Redmine version's controller to include the module from the file above.
     ApplicationController.send(:include, DeviseCurrentUser::ApplicationControllerPatch)
+    RedmineRedactorJs.apply_patch
   end
 end
 

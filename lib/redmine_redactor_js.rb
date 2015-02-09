@@ -54,20 +54,6 @@ module RedmineRedactorJs
       }
     end
 
-    def skin_options
-      options_for_select(["moono"] + skins, :selected => RedmineCkeditorSetting.skin)
-    end
-
-    def enter_mode_options
-      options_for_select({:p => 1, :br => 2, :div => 3},
-                         :selected => RedmineCkeditorSetting.enter_mode)
-    end
-
-    def toolbar_location_options
-      options_for_select(["top", "bottom"],
-                         :selected => RedmineCkeditorSetting.toolbar_location)
-    end
-
     def options(scope_object = nil)
       # scope_type = scope_object && scope_object.class.model_name
       # scope_id = scope_object && scope_object.id
@@ -106,10 +92,11 @@ module RedmineRedactorJs
     end
 
     def enabled?
-      Setting.text_formatting == "CKEditor"
+      Setting.text_formatting == "Imperavi Redactor"
     end
 
     def apply_patch
+      require 'application_helper_patch'
     end
   end
 end

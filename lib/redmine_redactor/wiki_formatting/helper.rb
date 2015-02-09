@@ -36,7 +36,6 @@ module RedmineRedactor::WikiFormatting
     end
 
     def user_api_key
-      p User.current
       return nil if User.current.type == "AnonymousUser"
       User.current.api_key
     end

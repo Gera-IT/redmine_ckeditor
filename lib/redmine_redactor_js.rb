@@ -97,6 +97,7 @@ module RedmineRedactorJs
 
     def apply_patch
       require 'application_helper_patch'
+      require 'redmine_helpers_diff_patch'
     end
   end
 end

@@ -8,8 +8,6 @@ module RedmineRedactor::WikiFormatting
 
     def to_html(&block)
       auto_link!(@text)
-      p 'in to_html'
-      p @text
       ActionView::Base.white_list_sanitizer.sanitize(@text,
                                                      :tags => RedmineRedactorJs.allowed_tags,
                                                      :attributes => RedmineRedactorJs.allowed_attributes

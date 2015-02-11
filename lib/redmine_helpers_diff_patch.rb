@@ -26,9 +26,13 @@ module Redmine
       attr_reader :diff, :words
 
       def initialize_with_redactor(content_to, content_from)
-        @words = sanitize(content_to.to_s, tags: ["br"]).split(/(\s+)/)
+        @words = content_to.to_s.gsub("><", "> <")
+        @words = @words.gsub("<br>", "\n")
+        @words = strip_tags(@words).split(/(\s+)/)
         @words = @words.select {|word| word != ' '}
-        words_from = sanitize(content_from.to_s, tags: ["br"]).split(/(\s+)/)
+        words_from = content_from.to_s.gsub("><", " ")
+        words_from = words_from.gsub("<br>", "\n")
+        words_from = strip_tags(words_from).split(/(\s+)/)
         words_from = words_from.select {|word| word != ' '}
         @diff = words_from.diff @words
       end
@@ -48,6 +52,7 @@ module Redmine
         #   words = self.words
         # end
         # p words
+        p words
         words = words.collect{|word| h(word)}
         words_add = 0
         words_del = 0
@@ -72,11 +77,11 @@ module Redmine
             end
           end
           if add_at
-            words[add_at] = '<span class="diff_in">'.html_safe + words[add_at].gsub("&lt;", "<").gsub("&gt;", ">")
+            words[add_at] = '<span class="diff_in">'.html_safe + words[add_at]
             words[add_to] = words[add_to]+ '</span>'.html_safe
           end
           if del_at
-            words.insert del_at - del_off + dels + words_add, '<span class="diff_out">'.html_safe + deleted.gsub("&lt;", "<").gsub("&gt;", ">") + '</span>'.html_safe
+            words.insert del_at - del_off + dels + words_add, '<span class="diff_out">'.html_safe + deleted + '</span>'.html_safe
             dels += 1
             del_off += words_del
             words_del = 0

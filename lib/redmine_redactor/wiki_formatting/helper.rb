@@ -20,8 +20,8 @@ module RedmineRedactor::WikiFormatting
 
     $('##{field_id}').redactor({
         focus: true,
-        linebreaks: true,
-        paragraphy: false,
+        //linebreaks: true,
+        //paragraphy: false,
         pastePlainText: true,
         imageUpload: '/pictures.json?key=#{user_api_key}',
         imageManagerJson: '/pictures.json?key=#{user_api_key}',

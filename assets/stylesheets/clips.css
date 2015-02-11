@@ -4,3 +4,22 @@
 	padding: 0 7px;
 	border-radius: 4px;
 }
+
+.ins ins {
+	min-width: 10px;
+	min-height: 10px;
+	display: inline-block;
+	background: lightgreen;
+}
+
+
+.del del {
+	min-width: 10px;
+	min-height: 10px;
+	display: inline-block;
+	background: rgb(255, 152, 152);
+}
+
+.diff ul {
+	list-style-type:none;
+}

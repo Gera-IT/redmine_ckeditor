@@ -23,23 +23,37 @@ module Redmine
       include ERB::Util
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::TextHelper
-      attr_reader :diff, :words
+      attr_reader :diff, :words, :words_from
 
       def initialize_with_redactor(content_to, content_from)
+        p content_to
+        p content_from
         @words = content_to.to_s.gsub("><", "> <")
-        @words = @words.gsub("<br>", "\n")
-        @words = strip_tags(@words).split(/(\s+)/)
-        @words = @words.select {|word| word != ' '}
-        words_from = content_from.to_s.gsub("><", " ")
-        words_from = words_from.gsub("<br>", "\n")
-        words_from = strip_tags(words_from).split(/(\s+)/)
-        words_from = words_from.select {|word| word != ' '}
+        @words = @words.gsub("<br>", "\n\r")
+        @words = strip_tags(@words)
+        # @words = @words.split(/(\s+)/)
+        # @words =
+        # @words = @words.select {|word| word != ' '}
+        words_from = content_from.to_s.gsub("><", "> <")
+
+
+        # words_from = words_from.split(/(\s+)/)
+        # words_from =
+        # words_from = words_from.select {|word| word != ' '}
+        words_from = words_from.gsub("<br>", "\n\r")
+        words_from = strip_tags(words_from)
+        @words_from = words_from
         @diff = words_from.diff @words
       end
-
+      #
       alias_method_chain :initialize, :redactor
 
       def to_html_with_redactor
+        dff = Diffy::Diff.new(@words_from, @words)
+        dff.to_s(:html_simple)
+      end
+
+      def to_html_with_redactor_1
         words = self.words
         # p words
         # begin
@@ -88,7 +102,7 @@ module Redmine
           end
         end
         p words
-        words.join(' ').html_safe
+        words.join(' ')
       end
       alias_method_chain :to_html, :redactor
     end

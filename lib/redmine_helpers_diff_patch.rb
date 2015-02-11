@@ -30,7 +30,8 @@ module Redmine
         p content_from
         @words = content_to.to_s.gsub("><", "> <")
         @words = @words.gsub("<br>", "\n\r")
-        @words = strip_tags(@words)
+        @words = @words.gsub(/<.*?>/, " ")
+         p @words
         # @words = @words.split(/(\s+)/)
         # @words =
         # @words = @words.select {|word| word != ' '}
@@ -41,8 +42,9 @@ module Redmine
         # words_from =
         # words_from = words_from.select {|word| word != ' '}
         words_from = words_from.gsub("<br>", "\n\r")
-        words_from = strip_tags(words_from)
+        words_from = words_from.gsub(/<.*?>/, " ")
         @words_from = words_from
+        p @words_from
         @diff = words_from.diff @words
       end
       #
@@ -50,7 +52,7 @@ module Redmine
 
       def to_html_with_redactor
         dff = Diffy::Diff.new(@words_from, @words)
-        dff.to_s(:html_simple)
+        dff.to_s(:html)
       end
 
       def to_html_with_redactor_1

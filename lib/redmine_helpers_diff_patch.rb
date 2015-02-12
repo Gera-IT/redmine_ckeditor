@@ -30,7 +30,10 @@ module Redmine
         p content_from
         @words = content_to.to_s.gsub("><", "> <")
         @words = @words.gsub("<br>", "\n\r")
+        @words = @words.gsub("</p>", "\n\r")
+        @words = @words.gsub("</li>", "\n\r")
         @words = @words.gsub(/<.*?>/, " ")
+        @words = strip_tags(@words)
          p @words
         # @words = @words.split(/(\s+)/)
         # @words =
@@ -42,8 +45,10 @@ module Redmine
         # words_from =
         # words_from = words_from.select {|word| word != ' '}
         words_from = words_from.gsub("<br>", "\n\r")
+        words_from= words_from.gsub("</p>", "\n\r")
+        words_from= words_from.gsub("</li>", "\n\r")
         words_from = words_from.gsub(/<.*?>/, " ")
-        @words_from = words_from
+        @words_from = strip_tags(words_from)
         p @words_from
         @diff = words_from.diff @words
       end

@@ -21,7 +21,7 @@ module RedmineRedactor::WikiFormatting
     $('##{field_id}').redactor({
         focus: true,
         linebreaks: true,
-        paragraphy: false,
+        paragraphy: true,
         imageUpload: '/pictures.json?key=#{user_api_key}',
         imageManagerJson: '/pictures.json?key=#{user_api_key}',
         fileUpload: '/documents.json?key=#{user_api_key}',

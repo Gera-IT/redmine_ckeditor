@@ -28,27 +28,29 @@ module Redmine
       def initialize_with_redactor(content_to, content_from)
         p content_to
         p content_from
-        @words = content_to.to_s.gsub("><", "> <")
-        @words = @words.gsub("<br>", "\n\r")
-        @words = @words.gsub("</p>", "\n\r")
-        @words = @words.gsub("</li>", "\n\r")
-        @words = @words.gsub(/<.*?>/, " ")
+        @words = content_to.to_s.gsub("><", "><")
+        @words = @words.gsub("<br>", "\n")
+        @words = @words.gsub("</p>", "\n")
+        @words = @words.gsub("</li>", "\n")
+        @words = @words.gsub(/<.*?>/, "")
         @words = strip_tags(@words)
+        @words << "\n"
          p @words
         # @words = @words.split(/(\s+)/)
         # @words =
         # @words = @words.select {|word| word != ' '}
-        words_from = content_from.to_s.gsub("><", "> <")
+        words_from = content_from.to_s.gsub("><", "><")
 
 
         # words_from = words_from.split(/(\s+)/)
         # words_from =
         # words_from = words_from.select {|word| word != ' '}
-        words_from = words_from.gsub("<br>", "\n\r")
-        words_from= words_from.gsub("</p>", "\n\r")
-        words_from= words_from.gsub("</li>", "\n\r")
-        words_from = words_from.gsub(/<.*?>/, " ")
+        words_from = words_from.gsub("<br>", "\n")
+        words_from= words_from.gsub("</p>", "\n")
+        words_from= words_from.gsub("</li>", "\n")
+        words_from = words_from.gsub(/<.*?>/, "")
         @words_from = strip_tags(words_from)
+        @words_from << "\n"
         p @words_from
         @diff = words_from.diff @words
       end

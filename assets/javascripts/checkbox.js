@@ -18,7 +18,9 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 
 			show: function()
 			{
-				this.insert.htmlWithoutClean("<input type='checkbox' name='asd' value='asd' class=" + makeid() + ">");
+				_klass = makeid();
+				this.insert.htmlWithoutClean("<input type='checkbox' name='asd' value='asd' class=" + _klass + ">");
+				this.caret.setAfter($('.' + _klass))
 			},
 			reset: function()
 			{

@@ -24,7 +24,7 @@ module RedmineRedactor::WikiFormatting
         imageManagerJson: '/pictures.json?key=#{user_api_key}',
         fileUpload: '/documents.json?key=#{user_api_key}',
         fileManagerJson: '/documents.json?key=#{user_api_key}',
-        plugins: ['filemanager', 'imagemanager', 'table', 'video', 'fullscreen', 'fontsize', 'fontfamily', 'fontcolor']
+        plugins: ['filemanager', 'imagemanager', 'table', 'video', 'fullscreen', 'fontsize', 'fontfamily', 'fontcolor', 'checkbox']
     });
       })();
       EOT

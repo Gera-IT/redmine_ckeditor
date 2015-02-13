@@ -26,8 +26,9 @@ module Redmine
       attr_reader :diff, :words, :words_from
 
       def initialize_with_redactor(content_to, content_from)
-        p content_to
-        p content_from
+
+        p Setting.text_formatting
+        p @project
         @words = content_to.to_s.gsub("><", "><")
         @words = @words.gsub("<br>", "\n")
         @words = @words.gsub("</p>", "\n")
@@ -35,23 +36,13 @@ module Redmine
         @words = @words.gsub(/<.*?>/, "")
         @words = strip_tags(@words)
         @words << "\n"
-         p @words
-        # @words = @words.split(/(\s+)/)
-        # @words =
-        # @words = @words.select {|word| word != ' '}
         words_from = content_from.to_s.gsub("><", "><")
-
-
-        # words_from = words_from.split(/(\s+)/)
-        # words_from =
-        # words_from = words_from.select {|word| word != ' '}
         words_from = words_from.gsub("<br>", "\n")
         words_from= words_from.gsub("</p>", "\n")
         words_from= words_from.gsub("</li>", "\n")
         words_from = words_from.gsub(/<.*?>/, "")
         @words_from = strip_tags(words_from)
         @words_from << "\n"
-        p @words_from
         @diff = words_from.diff @words
       end
       #
@@ -63,19 +54,8 @@ module Redmine
       end
 
       def to_html_with_redactor_1
+        #keeping old method in case if something will change and we have to revert back to original diff
         words = self.words
-        # p words
-        # begin
-        #   words = words.map { |e|
-        #     r = e.gsub("<br>", /\n|\r/)
-        #     r = r.gsub(/<.*?>/, '').strip
-        #     r.empty? ? "" : r
-        #   }
-        # rescue
-        #   words = self.words
-        # end
-        # p words
-        p words
         words = words.collect{|word| h(word)}
         words_add = 0
         words_del = 0

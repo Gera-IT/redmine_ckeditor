@@ -23,3 +23,8 @@
 .diff ul {
 	list-style-type:none;
 }
+
+.redactor-toolbar li a.re-checkbox {
+	background-image: url('checkbox_checked.png');
+	background-size: 16px 16px;
+}

@@ -38,7 +38,8 @@ class FilesHook < Redmine::Hook::ViewListener
         stylesheet_link_tag('clips.css', :plugin => 'redmine_redactor_js_editor') +
         javascript_include_tag('fontsize.js', :plugin => 'redmine_redactor_js_editor') +
         javascript_include_tag('fontfamily.js', :plugin => 'redmine_redactor_js_editor') +
-        javascript_include_tag('fontcolor.js', :plugin => 'redmine_redactor_js_editor')
+        javascript_include_tag('fontcolor.js', :plugin => 'redmine_redactor_js_editor') +
+        javascript_include_tag('checkbox.js', :plugin => 'redmine_redactor_js_editor')
   end
 end
 

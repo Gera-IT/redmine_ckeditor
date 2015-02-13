@@ -14,7 +14,7 @@ module RedmineRedactorJs
       @allowed_tags ||= %w[
         a abbr acronym address blockquote b big br caption cite code dd del dfn
         div dt em h1 h2 h3 h4 h5 h6 hr i img ins kbd li ol p pre samp small span
-        strike s strong sub sup table tbody td tfoot th thead tr tt u ul var iframe
+        strike s strong sub sup table tbody td tfoot th thead tr tt u ul var iframe input
       ]
     end
 
@@ -22,7 +22,7 @@ module RedmineRedactorJs
       @allowed_attributes ||= %w[
         href src width height alt cite datetime title class name xml:lang abbr dir
         style align valign border cellpadding cellspacing colspan rowspan nowrap
-        start reversed rel
+        start reversed rel type checked
       ]
     end
 
@@ -62,9 +62,13 @@ module RedmineRedactorJs
       Setting.text_formatting == "Imperavi Redactor"
     end
 
-    def apply_patch
+    def apply_redmine_files_patch
       require 'application_helper_patch'
       require 'redmine_helpers_diff_patch'
+    end
+
+    def apply_patch
+      RedmineRedactorJs.apply_redmine_files_patch
     end
   end
 end

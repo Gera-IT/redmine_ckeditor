@@ -7,3 +7,5 @@ post '/pictures', to: 'redactor_rails/pictures#create'
 
 post '/documents', to: 'redactor_rails/documents#create'
 get '/documents', to: 'redactor_rails/documents#index'
+
+get '/update_checkbox_state', to: 'states#set_state'

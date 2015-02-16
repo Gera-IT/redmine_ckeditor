@@ -51,26 +51,20 @@ function makeid()
 }
 $(function(){
 	$('.controller-wiki.action-show .wiki-page').on('click', 'input', function(e){
-
 		_this = $(this);
 		__this = this;
+		original_state = _this.prop('checked');
+		_this.attr("disabled", "disabled");
 		project_id = $('form').first().attr('action').replace( /\/projects\//, '' );
 		project_id = project_id.replace( /\/search/, '' );
 		wiki_page = window.location.href.split("/");
-		state = $(this).attr('checked') || false;
+		state = $(this).prop('checked') || false;
 		next_state = state ? false : true;
-		console.log(state);
-		console.log(next_state);
 		klass = $(this).attr('class');
 		if (wiki_page[(wiki_page.length - 2)] == project_id)
-		{
-			wiki_page = "root"
-		}
+		{wiki_page = "root"}
 		else if (wiki_page[(wiki_page.length - 2)] == "wiki")
-		{
-			wiki_page = wiki_page[(wiki_page.length - 1)]
-		}
-		console.log($(this));
+		{wiki_page = wiki_page[(wiki_page.length - 1)]}
 		var type = window.location.href.indexOf("/wiki") > 0 ? "WikiPage" : "Issue";
 		$.ajax({
 			type: "GET",
@@ -78,19 +72,16 @@ $(function(){
 			url: "/update_checkbox_state",
 			data: { type: type, project_id: project_id, wiki_page: wiki_page, state: state, klass: klass },
 			success: function(data){
-				if (_this.prop('checked'))
-				{
-					_this.removeAttr("checked")
-				}
-				else
-				{
-					_this.prop('checked', 'checked');
-				}
+				_this.removeAttr("disabled")
 			},
 			error: function(data){
 				console.log('Error happened, please ask Bill Gates to fix it');
+				_this.removeAttr("disabled")
+				if (_this.prop('checked'))
+				{_this.prop("checked", "")}
+				else
+				{_this.prop('checked', 'checked');}
 			}
 		});
-		e.preventDefault();
 	});
 });

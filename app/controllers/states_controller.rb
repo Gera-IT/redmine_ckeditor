@@ -5,9 +5,9 @@ class StatesController < ApplicationController
     klass = params[:klass]
     project = Project.find_by_identifier(params[:project_id])
     if params[:wiki_page] == "root"
-      wiki_content = WikiPage.find_by_title(project.wiki.start_page).content
+      wiki_content = project.wiki.pages.find_by_title(project.wiki.start_page).content
     else
-      wiki_content = WikiPage.find_by_title(params[:wiki_page]).content
+      wiki_content = project.wiki.pages.find_by_title(params[:wiki_page]).content
     end
 
     doc = Nokogiri::HTML::DocumentFragment.parse(wiki_content.text)

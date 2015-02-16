@@ -65,6 +65,7 @@ module RedmineRedactorJs
     def apply_redmine_files_patch
       require 'application_helper_patch'
       require 'redmine_helpers_diff_patch'
+      require 'wiki_page_patch'
     end
 
     def apply_patch

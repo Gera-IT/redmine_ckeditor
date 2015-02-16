@@ -58,8 +58,7 @@ $(function(){
 		project_id = $('form').first().attr('action').replace( /\/projects\//, '' );
 		project_id = project_id.replace( /\/search/, '' );
 		wiki_page = window.location.href.split("/");
-		state = $(this).prop('checked') || false;
-		next_state = state ? false : true;
+		state = _this.prop('checked') ? false : "checked"; //this needs to determine previous(before_click state)
 		klass = $(this).attr('class');
 		if (wiki_page[(wiki_page.length - 2)] == project_id)
 		{wiki_page = "root"}

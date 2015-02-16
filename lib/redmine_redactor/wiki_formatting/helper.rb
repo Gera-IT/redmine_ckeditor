@@ -9,21 +9,11 @@ module RedmineRedactor::WikiFormatting
         @content_to = content_to
         @content_from = content_from
         @words = content_to.text.to_s.gsub("><", "><")
-        @words = @words.gsub("<br>", "\n")
-        @words = @words.gsub("</p>", "\n")
-        @words = @words.gsub("</li>", "\n")
-        @words = @words.gsub("</tr>", "\n")
-        @words = @words.gsub("<td>", " | ")
-        @words = @words.gsub(/<.*?>/, "")
+        @words = @words.gsub("<br>", "\n").gsub("</p>", "\n").gsub("</li>", "\n").gsub("<td>", " | ").gsub("</tr>", "|\n").gsub(/<.*?>/, "")
         @words = strip_tags(@words)
         @words << "\n"
         words_from = content_from.text.to_s.gsub("><", "><")
-        words_from = words_from.gsub("<br>", "\n")
-        words_from= words_from.gsub("</p>", "\n")
-        words_from= words_from.gsub("</li>", "\n")
-        words_from = words_from.gsub("</tr>", "\n")
-        words_from = words_from.gsub("<td>", " | ")
-        words_from = words_from.gsub(/<.*?>/, "")
+        words_from = words_from.gsub("<br>", "\n").gsub("</p>", "\n").gsub("</li>", "\n").gsub("<td>", " | ").gsub("</tr>", "|\n").gsub(/<.*?>/, "")
         @words_from = strip_tags(words_from)
         @words_from << "\n"
         @diff = words_from.diff @words

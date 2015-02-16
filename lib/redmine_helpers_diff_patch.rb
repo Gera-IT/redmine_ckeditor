@@ -26,13 +26,12 @@ module Redmine
       attr_reader :diff, :words, :words_from
 
       def initialize_with_redactor(content_to, content_from)
-
-        p Setting.text_formatting
-        p @project
         @words = content_to.to_s.gsub("><", "><")
         @words = @words.gsub("<br>", "\n")
         @words = @words.gsub("</p>", "\n")
         @words = @words.gsub("</li>", "\n")
+        @words = @words.gsub("</tr>", "\n")
+        @words = @words.gsub("<td>", " | ")
         @words = @words.gsub(/<.*?>/, "")
         @words = strip_tags(@words)
         @words << "\n"
@@ -40,6 +39,8 @@ module Redmine
         words_from = words_from.gsub("<br>", "\n")
         words_from= words_from.gsub("</p>", "\n")
         words_from= words_from.gsub("</li>", "\n")
+        words_from = words_from.gsub("</tr>", "\n")
+        words_from = words_from.gsub("<td>", " | ")
         words_from = words_from.gsub(/<.*?>/, "")
         @words_from = strip_tags(words_from)
         @words_from << "\n"

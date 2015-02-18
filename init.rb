@@ -27,7 +27,7 @@ end
 
 
 
-class FilesHook < Redmine::Hook::ViewListener
+class RedactorFilesHook < Redmine::Hook::ViewListener
   def view_layouts_base_html_head(context = { })
     javascript_include_tag('redactor.js', :plugin => 'redmine_redactor_js_editor') +
         stylesheet_link_tag('redactor.css', :plugin => 'redmine_redactor_js_editor') +

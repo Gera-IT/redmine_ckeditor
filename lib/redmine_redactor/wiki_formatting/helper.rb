@@ -46,6 +46,8 @@ module RedmineRedactor::WikiFormatting
 
     $('##{field_id}').redactor({
         focus: true,
+        minHeight:250,
+        maxHeight:350,
         imageUpload: '/pictures.json?key=#{user_api_key}',
         imageManagerJson: '/pictures.json?key=#{user_api_key}',
         fileUpload: '/documents.json?key=#{user_api_key}',
@@ -53,6 +55,12 @@ module RedmineRedactor::WikiFormatting
         plugins: ['filemanager', 'imagemanager', 'table', 'video', 'fullscreen', 'fontsize', 'fontfamily', 'fontcolor', 'checkbox']
     });
       })();
+    $('.edit_issue').submit(function(){
+        if ($('input[name="issue[notes]"]').size() == 1)
+        {
+        $('input[name="issue[notes]"]').val($('#issue_notes').val())
+        }
+    })
       EOT
     end
 

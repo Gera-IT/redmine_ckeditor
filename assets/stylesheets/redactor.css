@@ -24,7 +24,7 @@
   margin-bottom: 24px;
 }
 .redactor-box textarea {
-  height:375px!important;
+  height:250px!important;
   display: block;
   position: relative;
   margin: 0;
@@ -112,7 +112,7 @@ body .redactor-box-fullscreen {
   font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
   font-size: 14px;
   line-height: 1.6em;
-  height:375px;
+  /*height:375px;*/
 }
 .redactor-editor:focus {
   outline: none;
